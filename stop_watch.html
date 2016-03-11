@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Stop Watch</title>
+  <style>
+    #main {
+      position: relative;
+      margin: 0 auto;
+      border: 1px solid black;
+      width: 300px;
+      height: 300px;
+    }
+
+    #watch {
+      position: absolute;
+      margin: 30px 0px 0px 50px;
+      border: 1px solid black;
+      width: 200px;
+      height: 200px;
+    }
+
+    #button-panel {
+      position: absolute;
+      width: 200px;
+      height: 30px;
+      margin: 250px 0px 0px 50px;
+    }
+
+    #time {
+      font-size: 4em;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    #start {
+      width: 80px;
+      float: left;
+      height: 30px;
+    }
+
+    #stop {
+      width: 80px;
+      float: right;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="main">
+    <div id="watch">
+      <div id="time">0</div>
+    </div>
+    <div id="button-panel">
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+    </div>
+  </div>
+  <script language="javascript">
+    var startButton = document.querySelector("#start");
+    var stopButton = document.querySelector("#stop");
+    var timeNode = document.querySelector("#time");
+
+    stopButton.setAttribute("disabled", true);
+
+    var updateTimeByOneSecond = function() {
+       timeNode.textContent = parseInt(timeNode.textContent) + 1;
+    }
+
+    var startIntervalId;
+    startButton.addEventListener("click", function() {
+      startIntervalId = setInterval(updateTimeByOneSecond, 1000);
+      startButton.setAttribute("disabled", true);
+      stopButton.removeAttribute("disabled");
+    });
+
+    stopButton.addEventListener("click", function() {
+      clearInterval(startIntervalId);
+      timeNode.textContent = "0";
+      startButton.removeAttribute("disabled");
+      stopButton.setAttribute("disabled", true);
+    });
+  </script>
+</body>
+</html>
